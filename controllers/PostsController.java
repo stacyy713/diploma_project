@@ -87,17 +87,6 @@ public class PostsController {
         post.setDate_creation(date_creation);
 
 
-//        // Отримати об'єкт, що представляє авторизованого користувача
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        // Отримати об'єкт User, якщо ви використовуєте свій власний клас користувача
-//        UserEntity authorizedUser = (UserEntity) authentication.getPrincipal();
-//
-//        // Отримати UserInRole авторизованого користувача
-//        UserInRole userInRole = authorizedUser.g;
-//
-//        post.setUserInRole(userInRole);
-
-
         // Отримати авторизованого користувача (authorizedUser)
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String authorizedUser = authentication.getName();
@@ -108,35 +97,10 @@ public class PostsController {
 
         System.out.println("Волонтер: " + authorizedUser);
 
-//        // Отримати userInRole
-//        Optional <UserInRole> userInRole = userInRoleRepository.findByUser();
-//        post.setUserInRole(userInRole);
-
-
-//        // Перевіряємо чи існує поточний userId (id) в таблиці UserInRole
-//        UserInRole user = userInRoleRepository.findById(userId).get();
-//        if(!userInRoleRepository.findById(userId).isPresent()){
-//            return "error";
-//        } else {
-//            post.setUserInRole(user);
-//        }
-
         postRepository.save(post);
         return "redirect:/panel_volunteer";
     }
 
-//    @GetMapping("/posts/{id}")
-//    public String postDetails(@PathVariable(value = "id") long id, Model model) {
-//        if(!postRepository.existsById(id)) {
-//            return "redirect:/posts";
-//        }
-//
-//        Optional<Post> post = postRepository.findById(id);
-//        ArrayList<Post> res = new ArrayList<>();
-//        post.ifPresent(res::add);
-//        model.addAttribute("post", res);
-//        return "panel_volunteer";
-//    }
 
     @GetMapping("/posts/{id}/edit")
     public String postEdit(@PathVariable(value = "id") long id, Model model) {
